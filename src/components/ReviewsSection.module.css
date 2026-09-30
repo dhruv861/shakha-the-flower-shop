@@ -1,0 +1,115 @@
+.section {
+  padding: 48px 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meta {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.meta a {
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Phones show two reviews, as in the mobile design. */
+.list > li:nth-child(n + 3) {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--sand);
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+  color: var(--rose);
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.source {
+  margin-top: auto;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+@media (hover: hover) {
+  .meta a:hover {
+    color: var(--rose);
+  }
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .list > li:nth-child(n + 3) {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 96px 0;
+  }
+
+  .head {
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .meta {
+    font-size: 0.875rem;
+  }
+
+  .list {
+    gap: 24px;
+    margin-top: 44px;
+  }
+
+  .card {
+    gap: 16px;
+    padding: 32px;
+    border-radius: 18px;
+  }
+
+  .quote {
+    font-size: 1.25rem;
+  }
+
+  .source {
+    font-size: 0.8125rem;
+  }
+}

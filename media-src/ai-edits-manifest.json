@@ -1,0 +1,17 @@
+{
+  "about": "AI-edited images made with Runway for Shakha's website. Every product shown is a real Shakha product, re-staged from Shakha's own photos; the texture is decorative and shows no product. Files in web/ that are not listed here are plain resized or cropped copies of real photos, with no AI editing.",
+  "createdAt": "2026-09-29",
+  "runwayCreditsUsed": 142,
+  "runwayCreditsRemaining": 358,
+  "files": [
+    {"file": "hero_pink_roses_16x9.png", "web": "web/hero-pink-roses.jpg", "source": "../images/44_3988933397098853675.jpg", "edit": "Background replaced with an ivory wall, widened to 16:9 with space for a headline", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "tile_heart_rose_box_3x4.png", "web": "web/tile-love-heart-box.jpg", "source": "../google/01_05.jpg", "edit": "Re-staged on an oak table against an ivory wall, 3:4", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "tile_kraft_roses_3x4.png", "web": "web/tile-just-because-kraft-roses.jpg", "source": "../google/01_07.jpg", "edit": "Re-staged on an oak table against an ivory wall, 3:4", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "tile_coffee_bouquet_3x4.png", "web": "web/signature-coffee-bouquet.jpg", "source": "../images/40_3949635854543201696.jpg", "edit": "Re-staged on an oak table against an ivory wall, on-screen text removed, 3:4", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "tile_hampers_3x4.png", "web": "web/tile-hampers-restaged.jpg", "source": "../google/01_24.jpg", "edit": "Re-staged top-down on a pale oak surface, 3:4; a half-cropped basket at the original's left edge was dropped", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "storefront_vesu_16x9.png", "web": "web/storefront-vesu-16x9.jpg", "source": "../google/01_02.jpg", "edit": "Exposure evened out and framed at 16:9; the right edge was extended slightly, so that strip of window display is AI-filled. Signage and shop unchanged", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "texture_ivory_petals_16x9.png", "web": "web/texture-ivory-petals.jpg", "source": null, "edit": "Generated from a text prompt as a decorative section background", "model": "nano-banana-pro, 2K", "credits": 20},
+    {"file": "cutout_sunflower_lily.png", "web": "web/cutout-sunflower-lily.webp", "source": "../google/02_26.jpg", "edit": "Background removed", "model": "background removal", "credits": 1, "caveat": "Patchy edges where the clear cellophane was; touch up before use"},
+    {"file": "cutout_teddy_gift_bag.png", "web": "web/cutout-teddy-gift-bag.webp", "source": "../google/02_11.jpg", "edit": "Background removed", "model": "background removal", "credits": 1, "caveat": "The shop background still shows through the clear acrylic bag; needs a manual touch-up before use"}
+  ]
+}

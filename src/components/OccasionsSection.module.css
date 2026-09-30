@@ -1,0 +1,167 @@
+.section {
+  padding: 48px 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wideOnly {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
+  margin-top: 24px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--ink);
+}
+
+.photo {
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+  border-radius: 14px;
+  overflow: clip;
+  background: var(--sand);
+}
+
+.zoom {
+  height: 100%;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  line-height: 1.2;
+}
+
+.detail {
+  display: none;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.arrow {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .tile:hover .zoom {
+    transform: scale(1.04);
+  }
+
+  .tile:hover .arrow {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--cream);
+  }
+}
+
+@media (min-width: 768px) {
+  .wideOnly {
+    display: inline;
+  }
+
+  .grid {
+    gap: 28px 24px;
+  }
+
+  .detail {
+    display: block;
+  }
+
+  .arrow {
+    display: flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 96px 0;
+  }
+
+  .head {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 64px;
+  }
+
+  .intro {
+    gap: 14px;
+  }
+
+  .headText {
+    width: 420px;
+    flex-shrink: 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 44px;
+  }
+
+  .tile {
+    gap: 16px;
+  }
+
+  .photo {
+    border-radius: 16px;
+  }
+
+  .name {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .name {
+    font-size: 1.375rem;
+  }
+}

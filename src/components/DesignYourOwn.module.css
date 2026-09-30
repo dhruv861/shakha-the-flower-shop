@@ -1,0 +1,121 @@
+.section {
+  padding: 48px 0;
+  background: var(--sand);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.photo {
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: clip;
+  background: var(--sand-deep);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.number {
+  width: 24px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1875rem;
+  color: var(--rose);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.actions :global(.btn) {
+  width: 100%;
+}
+
+.whatsapp {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 22px;
+  }
+
+  .actions :global(.btn) {
+    width: auto;
+  }
+
+  .whatsapp {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 88px 0;
+  }
+
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(48px, 5.6vw, 80px);
+  }
+
+  .photo {
+    flex: 0 0 min(640px, 50%);
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+  }
+
+  .copy {
+    gap: 22px;
+  }
+
+  .steps {
+    gap: 14px;
+  }
+
+  .steps li {
+    gap: 16px;
+    font-size: 1rem;
+  }
+
+  .number {
+    width: 30px;
+    font-size: 1.375rem;
+  }
+}

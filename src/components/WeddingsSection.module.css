@@ -1,0 +1,150 @@
+.section {
+  padding: 48px 0;
+  background: var(--sand);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chips {
+  display: none;
+}
+
+.ctaWide {
+  display: none;
+}
+
+.ctaNarrow {
+  width: 100%;
+  min-height: 52px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.photo {
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+  border-radius: 12px;
+  overflow: clip;
+  background: var(--sand-deep);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Phones show the short caption; screen readers always get the full one. */
+.captionLong {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .gallery {
+    gap: 16px;
+  }
+
+  .figure {
+    gap: 10px;
+  }
+
+  .photo {
+    border-radius: 16px;
+  }
+
+  .caption {
+    font-size: 0.875rem;
+  }
+
+  .captionLong {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+
+  .captionShort {
+    display: none;
+  }
+
+  .ctaNarrow {
+    width: auto;
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 96px 0;
+  }
+
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(48px, 5vw, 72px);
+  }
+
+  .text {
+    width: clamp(340px, 28vw, 400px);
+    flex-shrink: 0;
+    gap: 20px;
+  }
+
+  .ctaWide {
+    display: inline-flex;
+    align-self: flex-start;
+    min-height: 52px;
+    margin-top: 6px;
+  }
+
+  .ctaNarrow {
+    display: none;
+  }
+
+  .gallery {
+    flex: 1;
+    gap: 20px;
+  }
+
+  .photo {
+    aspect-ratio: 16 / 25;
+  }
+}

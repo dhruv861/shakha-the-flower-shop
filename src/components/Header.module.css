@@ -1,0 +1,277 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ivory);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--header-h);
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--ink);
+}
+
+.logoMark,
+.logoSub {
+  text-transform: uppercase;
+}
+
+.logoMark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+}
+
+.logoSub {
+  font-size: 0.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.34em;
+  color: var(--muted);
+}
+
+.nav {
+  display: none;
+  gap: clamp(20px, 2.5vw, 36px);
+  font-size: 0.9375rem;
+}
+
+.nav a {
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.cta {
+  width: 44px;
+  min-height: 44px;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+/* Icon-only below 1024px; the label stays for screen readers. */
+.ctaLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.menuButton {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.16s var(--ease-out);
+}
+
+.menuButton:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Mobile menu ---------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out),
+    visibility 0s linear 0.22s;
+}
+
+.menu[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out);
+}
+
+.menuBar {
+  border-bottom: 1px solid var(--line);
+}
+
+.menuBody {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+  padding: 24px 0 40px;
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuNav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.15s var(--ease-out),
+    transform 0.15s var(--ease-out);
+}
+
+.menuNav a svg {
+  color: var(--rose);
+}
+
+.menu[data-open="true"] .menuNav a {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.3s var(--ease-out) calc(var(--i) * 40ms + 60ms),
+    transform 0.3s var(--ease-out) calc(var(--i) * 40ms + 60ms);
+}
+
+.menuContact {
+  display: grid;
+  gap: 12px;
+}
+
+.menuContact :global(.btn) {
+  min-height: 52px;
+}
+
+.menuInstagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.menuMeta {
+  margin-top: auto;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (hover: hover) {
+  .nav a:hover,
+  .phone:hover {
+    color: var(--rose);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    gap: 5px;
+  }
+
+  .logoMark {
+    font-size: 1.625rem;
+  }
+
+  .logoSub {
+    font-size: 0.625rem;
+  }
+
+  .nav {
+    display: flex;
+  }
+
+  .actions {
+    gap: 22px;
+  }
+
+  .cta {
+    width: auto;
+    padding: 0 22px;
+    gap: 8px;
+  }
+
+  .ctaLabel {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+
+  .menuButton,
+  .menu {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .phone {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu[data-open="true"] {
+    transform: none;
+  }
+
+  .menuNav a,
+  .menu[data-open="true"] .menuNav a {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

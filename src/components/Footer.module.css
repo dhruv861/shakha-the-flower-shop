@@ -1,0 +1,175 @@
+.footer {
+  padding: 44px 0 28px;
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: flex-start;
+}
+
+.logoMark,
+.logoSub {
+  text-transform: uppercase;
+}
+
+.logoMark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+}
+
+.logoSub {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.34em;
+  color: var(--sage);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--sage);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 16px;
+  font-size: 0.875rem;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.colTitle {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
+
+.col a {
+  transition: color 0.2s ease;
+}
+
+.email {
+  overflow-wrap: anywhere;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgb(247 241 232 / 0.16);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--sage);
+}
+
+@media (hover: hover) {
+  .col a:hover {
+    color: var(--blush);
+  }
+}
+
+@media (min-width: 768px) {
+  .cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding: 72px 0 44px;
+  }
+
+  .top {
+    gap: 40px;
+  }
+
+  .brand {
+    gap: 18px;
+  }
+
+  .logo {
+    gap: 5px;
+  }
+
+  .logoMark {
+    font-size: 1.625rem;
+  }
+
+  .logoSub {
+    font-size: 0.625rem;
+  }
+
+  .tagline {
+    font-size: 1.1875rem;
+  }
+
+  .cols {
+    display: flex;
+    gap: 72px;
+    font-size: 0.9375rem;
+  }
+
+  .col {
+    gap: 12px;
+  }
+
+  .colTitle {
+    font-size: 0.75rem;
+  }
+
+  .bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding-top: 22px;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .top {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 64px;
+  }
+
+  .brand {
+    width: 340px;
+  }
+}

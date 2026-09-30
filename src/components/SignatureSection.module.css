@@ -1,0 +1,312 @@
+.section {
+  padding: 48px 0;
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.section :global(.eyebrow) {
+  color: var(--blush);
+}
+
+.section :global(.lead) {
+  color: var(--sage);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: clamp(2.125rem, 1.706rem + 1.714vw, 3.25rem);
+  color: var(--cream);
+}
+
+.title em {
+  color: var(--blush);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.custom {
+  display: none;
+  color: var(--cream);
+}
+
+/* Below 1024px: a swipeable row that bleeds off the right edge. */
+.rail {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+  padding-inline: max(var(--gutter), (100% - var(--container)) / 2);
+  scroll-padding-inline: max(var(--gutter), (100% - var(--container)) / 2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 clamp(250px, 68vw, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-snap-align: start;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: clip;
+  background: var(--forest-soft);
+}
+
+.zoom {
+  height: 100%;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.viral .photo img {
+  object-position: center 72%;
+}
+
+.badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: rgb(28 47 37 / 0.86);
+  color: var(--cream);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgeMore {
+  display: none;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nameRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+/* The whole card is the link target; the name carries the link text. */
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+
+.cardLink:focus-visible {
+  outline: none;
+}
+
+.cardLink:focus-visible::after {
+  outline: 2px solid var(--blush);
+  outline-offset: 4px;
+}
+
+.price {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--blush);
+}
+
+.text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--sage);
+}
+
+.also {
+  margin-top: 28px;
+}
+
+.alsoLine {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--sage);
+}
+
+.chips {
+  display: none;
+}
+
+.chipList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chipList :global(.chip) {
+  border-color: rgb(247 241 232 / 0.24);
+  color: var(--cream);
+}
+
+.chipsLabel {
+  margin-right: 6px;
+  font-size: 0.875rem;
+  color: var(--sage);
+}
+
+@media (hover: hover) {
+  .card:hover .zoom {
+    transform: scale(1.04);
+  }
+}
+
+@media (min-width: 768px) {
+  .custom {
+    display: inline-flex;
+  }
+
+  .badgeMore {
+    display: inline;
+  }
+
+  .also {
+    margin-top: 44px;
+  }
+
+  .alsoLine {
+    display: none;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 88px 0;
+  }
+
+  .head {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 64px;
+  }
+
+  .intro {
+    max-width: 640px;
+    gap: 16px;
+  }
+
+  .aside {
+    width: 400px;
+    flex-shrink: 0;
+  }
+
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    width: min(100% - 2 * var(--gutter), var(--container));
+    margin: 44px auto 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .card {
+    gap: 18px;
+  }
+
+  .photo {
+    aspect-ratio: 9 / 10;
+    border-radius: 18px;
+  }
+
+  .cardLink::after {
+    border-radius: 18px;
+  }
+
+  .badge {
+    left: 16px;
+    top: 16px;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.8125rem;
+  }
+
+  .body {
+    gap: 6px;
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+
+  .price {
+    flex-shrink: 0;
+    font-size: 0.9375rem;
+  }
+
+  .text {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nameRow {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .name {
+    font-size: 1.625rem;
+  }
+}

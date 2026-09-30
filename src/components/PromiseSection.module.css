@@ -1,0 +1,211 @@
+.section {
+  position: relative;
+  overflow: clip;
+  background: var(--ivory);
+}
+
+.texture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 85% center;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 48px 0;
+}
+
+.list {
+  display: grid;
+  gap: 28px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--ivory);
+  color: var(--accent);
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 1.25;
+}
+
+.itemCopy {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgb(251 247 241 / 0.95);
+}
+
+.bandText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bandTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4375rem;
+  line-height: 1.2;
+}
+
+.bandSub {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--sand);
+  font-size: 0.875rem;
+}
+
+.pill strong {
+  font-weight: 600;
+}
+
+.wideOnly {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .wideOnly {
+    display: inline;
+  }
+
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .item {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .itemText {
+    gap: 14px;
+  }
+
+  .itemTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    gap: 56px;
+    padding: 96px 0;
+  }
+
+  .list {
+    gap: 48px;
+  }
+
+  .itemTitle {
+    font-size: 1.625rem;
+  }
+
+  .itemCopy {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .band {
+    gap: 18px;
+    padding: 28px 36px;
+    border-radius: 20px;
+    background: rgb(251 247 241 / 0.94);
+  }
+
+  .bandText {
+    gap: 6px;
+  }
+
+  .bandTitle {
+    font-size: 1.75rem;
+  }
+
+  .bandSub {
+    font-size: 0.9375rem;
+  }
+
+  .pills {
+    gap: 12px;
+  }
+
+  .pill {
+    min-height: 44px;
+    padding: 0 18px;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1200px) {
+  .band {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .pills {
+    flex-wrap: nowrap;
+  }
+}

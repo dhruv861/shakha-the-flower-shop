@@ -1,0 +1,274 @@
+{
+  "event-floral-arch": {
+    "width": 608,
+    "height": 811,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      608
+    ],
+    "base": "/img/event-floral-arch.f79751fb",
+    "fallback": "/img/event-floral-arch.f79751fb-608.jpg"
+  },
+  "hero-pink-roses": {
+    "width": 2400,
+    "height": 1340,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800,
+      960,
+      1200,
+      1400,
+      1600,
+      1920,
+      2400
+    ],
+    "base": "/img/hero-pink-roses.a0f75db7",
+    "fallback": "/img/hero-pink-roses.a0f75db7-800.jpg"
+  },
+  "ig-ferrero-teddy": {
+    "width": 720,
+    "height": 900,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-ferrero-teddy.7573759a",
+    "fallback": "/img/ig-ferrero-teddy.7573759a-480.jpg"
+  },
+  "ig-jamun": {
+    "width": 640,
+    "height": 800,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-jamun.74ebc726",
+    "fallback": "/img/ig-jamun.74ebc726-480.jpg"
+  },
+  "ig-laddu": {
+    "width": 720,
+    "height": 900,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-laddu.0c7998a4",
+    "fallback": "/img/ig-laddu.0c7998a4-480.jpg"
+  },
+  "ig-mocktail": {
+    "width": 720,
+    "height": 900,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-mocktail.2892a59d",
+    "fallback": "/img/ig-mocktail.2892a59d-480.jpg"
+  },
+  "ig-orchid": {
+    "width": 640,
+    "height": 800,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-orchid.b36154b5",
+    "fallback": "/img/ig-orchid.b36154b5-480.jpg"
+  },
+  "ig-white-bouquet": {
+    "width": 720,
+    "height": 900,
+    "widths": [
+      240,
+      360,
+      480
+    ],
+    "base": "/img/ig-white-bouquet.3b0580a8",
+    "fallback": "/img/ig-white-bouquet.3b0580a8-480.jpg"
+  },
+  "interior-vesu": {
+    "width": 1600,
+    "height": 901,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800,
+      960,
+      1200,
+      1400
+    ],
+    "base": "/img/interior-vesu.bf67c589",
+    "fallback": "/img/interior-vesu.bf67c589-800.jpg"
+  },
+  "signature-coffee-bouquet": {
+    "width": 1200,
+    "height": 1607,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800
+    ],
+    "base": "/img/signature-coffee-bouquet.91774b01",
+    "fallback": "/img/signature-coffee-bouquet.91774b01-800.jpg"
+  },
+  "signature-teddy-gift-bag": {
+    "width": 810,
+    "height": 1080,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800
+    ],
+    "base": "/img/signature-teddy-gift-bag.76d4ca88",
+    "fallback": "/img/signature-teddy-gift-bag.76d4ca88-800.jpg"
+  },
+  "storefront-vesu-16x9": {
+    "width": 2400,
+    "height": 1340,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800,
+      960,
+      1200,
+      1400
+    ],
+    "base": "/img/storefront-vesu-16x9.521f2038",
+    "fallback": "/img/storefront-vesu-16x9.521f2038-800.jpg"
+  },
+  "texture-ivory-petals": {
+    "width": 2400,
+    "height": 1340,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640,
+      800,
+      960,
+      1200,
+      1400,
+      1600,
+      1920,
+      2400
+    ],
+    "base": "/img/texture-ivory-petals.b79b03f1",
+    "fallback": "/img/texture-ivory-petals.b79b03f1-800.jpg"
+  },
+  "tile-birthdays-sunflower": {
+    "width": 608,
+    "height": 811,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      608
+    ],
+    "base": "/img/tile-birthdays-sunflower.a663f6ca",
+    "fallback": "/img/tile-birthdays-sunflower.a663f6ca-608.jpg"
+  },
+  "tile-hampers-restaged": {
+    "width": 1200,
+    "height": 1607,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640
+    ],
+    "base": "/img/tile-hampers-restaged.bf18d740",
+    "fallback": "/img/tile-hampers-restaged.bf18d740-640.jpg"
+  },
+  "tile-just-because-kraft-roses": {
+    "width": 1200,
+    "height": 1607,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640
+    ],
+    "base": "/img/tile-just-because-kraft-roses.6fb6bbe1",
+    "fallback": "/img/tile-just-because-kraft-roses.6fb6bbe1-640.jpg"
+  },
+  "tile-love-heart-box": {
+    "width": 1200,
+    "height": 1607,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640
+    ],
+    "base": "/img/tile-love-heart-box.be02ac0f",
+    "fallback": "/img/tile-love-heart-box.be02ac0f-640.jpg"
+  },
+  "viral-litchi-reel": {
+    "width": 640,
+    "height": 1136,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      640
+    ],
+    "base": "/img/viral-litchi-reel.fde41b27",
+    "fallback": "/img/viral-litchi-reel.fde41b27-640.jpg"
+  },
+  "wedding-car": {
+    "width": 608,
+    "height": 811,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      608
+    ],
+    "base": "/img/wedding-car.3a21f856",
+    "fallback": "/img/wedding-car.3a21f856-608.jpg"
+  },
+  "wedding-garland": {
+    "width": 608,
+    "height": 811,
+    "widths": [
+      240,
+      360,
+      480,
+      560,
+      608
+    ],
+    "base": "/img/wedding-garland.63f5c3c9",
+    "fallback": "/img/wedding-garland.63f5c3c9-608.jpg"
+  }
+}
