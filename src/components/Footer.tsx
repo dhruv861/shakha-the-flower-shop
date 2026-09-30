@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { branches, site, whatsappLink } from "@/lib/site";
 import styles from "./Footer.module.css";
 
@@ -9,10 +10,10 @@ export default function Footer() {
       <div className="container">
         <div className={styles.top}>
           <div className={styles.brand}>
-            <a href="#top" className={styles.logo}>
+            <Link href="/" className={styles.logo}>
               <span className={styles.logoMark}>Shakha</span>{" "}
               <span className={styles.logoSub}>The Flower Shop</span>
-            </a>
+            </Link>
             <p className={styles.tagline}>Not just flowers — emotions, wrapped beautifully.</p>
           </div>
 
@@ -21,10 +22,11 @@ export default function Footer() {
               <h2 id="footer-shop" className={styles.colTitle}>
                 Shop
               </h2>
-              <a href="#signature">Signature creations</a>
-              <a href="#occasions">Occasions</a>
-              <a href="#occasions">Hampers</a>
-              <a href="#weddings">Weddings &amp; décor</a>
+              <Link href="/shop">Shop all</Link>
+              <Link href="/shop?category=signature">Signature creations</Link>
+              <Link href="/shop?category=bouquets">Bouquets</Link>
+              <Link href="/shop?category=hampers">Hampers</Link>
+              <Link href="/#weddings">Weddings &amp; décor</Link>
             </nav>
             <div className={styles.col}>
               <h2 className={styles.colTitle}>Visit</h2>
@@ -33,7 +35,7 @@ export default function Footer() {
                   {branch.shortName} · <span className={styles.nowrap}>{branch.shortHours}</span>
                 </span>
               ))}
-              <a href="#visit">Get directions</a>
+              <Link href="/#visit">Get directions</Link>
             </div>
             <div className={styles.col}>
               <h2 className={styles.colTitle}>Contact</h2>

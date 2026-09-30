@@ -1,0 +1,177 @@
+/* Shared pieces for the shop, cart, checkout and order pages. */
+
+.page {
+  padding: 36px 0 64px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 44rem;
+}
+
+.title {
+  font-size: clamp(2.125rem, 1.7rem + 1.8vw, 3.25rem);
+}
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.notice {
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--sand);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.notice a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.chipRow {
+  display: flex;
+  gap: 8px;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0 var(--gutter);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chipRow::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.chip[aria-current="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.chipSoft {
+  composes: chip;
+  border-style: dashed;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 14px;
+  margin-top: 28px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--sand);
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 56px;
+  padding: 28px;
+  border-radius: 18px;
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.bandTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.bandText {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--sage);
+}
+
+.band :global(.btn) {
+  align-self: flex-start;
+  background: var(--cream);
+  color: var(--forest);
+}
+
+@media (hover: hover) {
+  .chip:not([aria-current="true"]):hover {
+    border-color: var(--ink);
+  }
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 56px 0 88px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px 20px;
+  }
+
+  .chipRow {
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .band {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 40px;
+  }
+
+  .band :global(.btn) {
+    align-self: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

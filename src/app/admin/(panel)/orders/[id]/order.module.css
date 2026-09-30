@@ -1,0 +1,81 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.facts a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9375rem;
+}
+
+.itemName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.9375rem;
+}
+
+.totals dt {
+  color: var(--muted);
+}
+
+.totals dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+.grand {
+  font-size: 1.0625rem;
+}
+
+.grand dt {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.gift {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}

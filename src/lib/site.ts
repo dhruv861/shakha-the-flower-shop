@@ -1,8 +1,8 @@
-// Every business fact on the site lives here, so updates happen in one place.
+// Business facts that rarely change. Prices, delivery rules and the
+// same-day cut-off are managed in the admin panel (/admin) instead.
 //
-// Placeholders in [BRACKETS] are facts Shakha still has to confirm before
-// launch (see README → "Before launch"). They render as-is on purpose:
-// never replace one with a guess.
+// Placeholders in [BRACKETS] show wherever Shakha hasn't set a value yet.
+// They render as-is on purpose: never replace one with a guess.
 
 export const PLACEHOLDER = {
   price: "[PRICE]",
@@ -23,17 +23,6 @@ export const site = {
   instagram: {
     handle: "shakhaflowerofficial",
     url: "https://www.instagram.com/shakhaflowerofficial/",
-  },
-  sameDayCutoff: PLACEHOLDER.cutoffTime,
-  // "From ₹…" starting prices. The three signature creations are priced
-  // individually on their cards; `signature` is the band's overall figure.
-  prices: {
-    bouquets: PLACEHOLDER.price,
-    signature: PLACEHOLDER.price,
-    hampers: PLACEHOLDER.price,
-    litchiBouquet: PLACEHOLDER.price,
-    coffeeBouquet: PLACEHOLDER.price,
-    teddyGiftBag: PLACEHOLDER.price,
   },
 } as const;
 

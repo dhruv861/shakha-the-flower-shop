@@ -1,4 +1,4 @@
-import { whatsappLink } from "@/lib/site";
+import Link from "next/link";
 import { ArrowIcon } from "./Icons";
 import Picture from "./Picture";
 import type { ImageName } from "./Picture";
@@ -9,39 +9,37 @@ type Occasion = {
   detail: string;
   image: ImageName;
   alt: string;
-  message: string;
+  href: string;
 };
 
-// There are no category pages: each tile opens WhatsApp with the occasion
-// already typed, which is how Shakha takes orders.
 const OCCASIONS: Occasion[] = [
   {
     name: "Love & romance",
     detail: "Roses, heart boxes and proposals",
     image: "tile-love-heart-box",
     alt: "A heart-shaped box of red roses on an oak table",
-    message: "Hi Shakha! I'm looking for something romantic.",
+    href: "/shop?occasion=love",
   },
   {
     name: "Just because",
     detail: "Little bouquets, big smiles",
     image: "tile-just-because-kraft-roses",
     alt: "Pink roses arranged in kraft paper boxes",
-    message: "Hi Shakha! I'd like a little bouquet, just because.",
+    href: "/shop?occasion=just-because",
   },
   {
     name: "Hampers & gifting",
     detail: "Fruit, flowers and treats",
     image: "tile-hampers-restaged",
     alt: "Fruit and sunflower gift hampers on an oak table",
-    message: "Hi Shakha! I'm looking for a gift hamper.",
+    href: "/shop?category=hampers",
   },
   {
     name: "Birthdays",
     detail: "Bright, cheerful bouquets",
     image: "tile-birthdays-sunflower",
     alt: "A bouquet of sunflowers and pink lilies",
-    message: "Hi Shakha! I'm looking for birthday flowers.",
+    href: "/shop?occasion=birthday",
   },
 ];
 
@@ -65,7 +63,7 @@ export default function OccasionsSection() {
         <ul className={styles.grid} role="list">
           {OCCASIONS.map((item, i) => (
             <li key={item.name} className="rise" data-d={i} data-dm={i % 2}>
-              <a href={whatsappLink(item.message)} target="_blank" rel="noopener noreferrer" className={styles.tile}>
+              <Link href={item.href} className={styles.tile}>
                 <div className={`${styles.photo} frame`}>
                   <div className={styles.zoom}>
                     <Picture
@@ -84,7 +82,7 @@ export default function OccasionsSection() {
                     <ArrowIcon />
                   </span>
                 </div>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

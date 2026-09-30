@@ -188,6 +188,19 @@
   color: var(--cream);
 }
 
+.chipLink {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .chipLink:hover {
+    background: var(--cream);
+    color: var(--forest);
+  }
+}
+
 .chipsLabel {
   margin-right: 6px;
   font-size: 0.875rem;

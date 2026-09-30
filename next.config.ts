@@ -1,16 +1,28 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // A plain static site: `npm run build` writes everything to out/, which
-  // any static host can serve (Netlify, Cloudflare Pages, Vercel, cPanel…).
-  output: "export",
+  // The shop and admin need a Node server (`npm run build && npm start`);
+  // see README → Deploying.
   experimental: {
     inlineCss: true,
+    serverActions: {
+      // Product photo uploads from the admin panel (15 MB per photo max).
+      bodySizeLimit: "25mb",
+    },
   },
   images: {
-    // Photos are pre-optimized by scripts/optimize-images.mjs and served
-    // through <Picture>; there is no server-side optimizer in a static export.
+    // Site photos are pre-optimized by scripts/optimize-images.mjs and uploads
+    // by src/lib/image-store.ts; next/image isn't used.
     unoptimized: true,
+  },
+  async headers() {
+    return [
+      {
+        // Content-hashed filenames: safe to cache for a year.
+        source: "/img/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
   },
 };
 

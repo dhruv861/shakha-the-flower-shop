@@ -1,7 +1,4 @@
-import AnnouncementBar from "@/components/AnnouncementBar";
 import DesignYourOwn from "@/components/DesignYourOwn";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import InstagramSection from "@/components/InstagramSection";
 import OccasionsSection from "@/components/OccasionsSection";
@@ -56,23 +53,15 @@ const jsonLd = {
 export default function Home() {
   return (
     <>
-      <a href="#main" className="skip-link">
-        Skip to content
-      </a>
-      <AnnouncementBar />
-      <Header />
-      <main id="main">
-        <Hero />
-        <SignatureSection />
-        <OccasionsSection />
-        <DesignYourOwn />
-        <PromiseSection />
-        <WeddingsSection />
-        <ReviewsSection />
-        <VisitSection />
-        <InstagramSection />
-      </main>
-      <Footer />
+      <Hero />
+      <SignatureSection />
+      <OccasionsSection />
+      <DesignYourOwn />
+      <PromiseSection />
+      <WeddingsSection />
+      <ReviewsSection />
+      <VisitSection />
+      <InstagramSection />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
