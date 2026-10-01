@@ -11,7 +11,7 @@ export const DATABASE_URL = process.env.DATABASE_URL ?? "file:data/shakha.db";
 
 function createDb() {
   if (DATABASE_URL.startsWith("file:")) {
-    mkdirSync(path.dirname(path.resolve(DATABASE_URL.slice("file:".length))), { recursive: true });
+    mkdirSync(path.dirname(path.resolve(/*turbopackIgnore: true*/ DATABASE_URL.slice("file:".length))), { recursive: true });
   }
   const client = createClient({ url: DATABASE_URL, authToken: process.env.DATABASE_AUTH_TOKEN });
   return { client, db: drizzle(client, { schema }) };

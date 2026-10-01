@@ -1,12 +1,11 @@
 // Business facts that rarely change. Prices, delivery rules and the
 // same-day cut-off are managed in the admin panel (/admin) instead.
 //
-// Placeholders in [BRACKETS] show wherever Shakha hasn't set a value yet.
-// They render as-is on purpose: never replace one with a guess.
+// [PRICE] shows wherever a price is needed and Shakha hasn't set one yet.
+// It renders as-is on purpose: never replace it with a guess.
 
 export const PLACEHOLDER = {
   price: "[PRICE]",
-  cutoffTime: "[CUTOFF TIME]",
 } as const;
 
 export const site = {

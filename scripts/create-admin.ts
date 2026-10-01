@@ -5,6 +5,7 @@
 //
 // Without --password, a strong random password is generated and printed once.
 
+import "./load-env";
 import { eq } from "drizzle-orm";
 import { admins, sessions } from "../src/db/schema";
 import { db, dbClient } from "../src/db/client";

@@ -4,6 +4,7 @@
 //
 // Usage: npm run db:seed   (does nothing if products already exist)
 
+import "./load-env";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { categories, productImages, products, productVariants } from "../src/db/schema";

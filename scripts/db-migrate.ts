@@ -1,5 +1,6 @@
 // Applies any pending migrations from drizzle/ to the database. Safe to run
 // repeatedly; `npm run dev` and `npm run build` run it first.
+import "./load-env";
 import { migrate } from "drizzle-orm/libsql/migrator";
 import { DATABASE_URL, db, dbClient } from "../src/db/client";
 

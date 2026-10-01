@@ -9,7 +9,8 @@ import { fallbackWidth } from "./media";
 // widths, plus one JPEG. Files live on disk in UPLOAD_DIR, so production needs
 // a persistent disk (or a swap to object storage).
 
-export const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR ?? "data/uploads");
+// Runtime data: the ignore hint keeps the build from tracing the project into its output.
+export const UPLOAD_DIR = path.resolve(/*turbopackIgnore: true*/ process.env.UPLOAD_DIR ?? "data/uploads");
 
 const LADDER = [360, 720, 1080, 1440];
 const MAX_BYTES = 15 * 1024 * 1024;

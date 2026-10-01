@@ -4,6 +4,7 @@ import { asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { db, orderItems, orders, productImages, productVariants } from "@/db";
 import { isValidDelivery, type IndiaNow, indiaNow } from "./delivery";
+import { indianMobile } from "./phone";
 import { deliveryRules, type ShopSettings } from "./settings";
 
 // ---------- Cart pricing ----------
@@ -94,11 +95,6 @@ export function deliveryCharge(settings: ShopSettings, fulfillment: "delivery" |
 // ---------- Checkout ----------
 
 const text = (max: number) => z.string().trim().max(max);
-const indianMobile = z
-  .string()
-  .trim()
-  .transform((s) => s.replace(/[\s()-]/g, "").replace(/^(\+91|91|0)(?=\d{10}$)/, ""))
-  .pipe(z.string().regex(/^[6-9]\d{9}$/, "Enter a 10-digit mobile number"));
 
 export const checkoutSchema = z
   .object({

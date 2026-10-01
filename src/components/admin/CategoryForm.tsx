@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { type FormState, saveCategoryAction } from "@/app/admin/actions";
 import styles from "./admin.module.css";
 import SubmitButton from "./SubmitButton";
@@ -11,8 +12,13 @@ export default function CategoryForm({ category }: { category?: Category }) {
   const { state, onSubmit, pending } = useStickyAction<FormState>(saveCategoryAction, {});
   const err = state.fieldErrors ?? {};
   const uid = category ? `c${category.id}` : "new";
+  const form = useRef<HTMLFormElement>(null);
+  // The "Add a category" form empties once its category is added, so it can't be added twice.
+  useEffect(() => {
+    if (!category && state.ok) form.current?.reset();
+  }, [category, state]);
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form ref={form} onSubmit={onSubmit} className={styles.form}>
       {category && <input type="hidden" name="id" value={category.id} />}
       <div className={styles.two}>
         <div className={styles.field} data-invalid={err.name ? "true" : undefined}>

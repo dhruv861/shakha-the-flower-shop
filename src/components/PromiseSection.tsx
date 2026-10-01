@@ -8,11 +8,11 @@ import { ClockIcon, SproutIcon, TruckIcon } from "./Icons";
 import Picture from "./Picture";
 import styles from "./PromiseSection.module.css";
 
-const promises = (cutoff: string): { icon: ReactNode; title: string; text: string }[] => [
+const promises = (cutoff: string | null): { icon: ReactNode; title: string; text: string }[] => [
   {
     icon: <TruckIcon size={22} />,
     title: "Same-day delivery",
-    text: `Across Surat when you order by ${cutoff}. Home or office, we'll bring it to the door.`,
+    text: `Across Surat${cutoff ? ` when you order by ${cutoff}` : ""}. Home or office, we'll bring it to the door.`,
   },
   {
     icon: <SproutIcon size={22} />,
@@ -32,11 +32,12 @@ const PRICE_BANDS = [
   { label: "Hampers", category: "hampers" },
 ];
 
-// Starting prices and the cut-off come from the admin panel; until Shakha
-// sets them, the visible placeholders stay.
+// Starting prices and the cut-off come from the admin panel. A category with
+// no priced product keeps its visible placeholder; the cut-off is simply left
+// out until one is set, as on the shop pages.
 export default async function PromiseSection() {
   const [prices, settings] = await Promise.all([startingPrices(), getSettings()]);
-  const cutoff = settings.sameDayCutoff ? formatTime(settings.sameDayCutoff) : PLACEHOLDER.cutoffTime;
+  const cutoff = settings.sameDayCutoff ? formatTime(settings.sameDayCutoff) : null;
   return (
     <section className={styles.section} aria-label="Why Shakha">
       <Picture name="texture-ivory-petals" alt="" sizes="100vw" className={styles.texture} />

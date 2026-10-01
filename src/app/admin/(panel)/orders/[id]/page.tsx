@@ -168,7 +168,8 @@ export default async function OrderDetailPage({ params }: PageProps<"/admin/orde
               </a>
               <form action={setOrderStatusAction} className={styles.toolbar} style={{ marginBottom: 0 }}>
                 <input type="hidden" name="id" value={order.id} />
-                <select name="status" defaultValue={order.status} className={styles.select} aria-label="Set status">
+                {/* Keyed so it re-mounts on the current status: an uncontrolled select ignores later defaultValue changes. */}
+                <select key={order.status} name="status" defaultValue={order.status} className={styles.select} aria-label="Set status">
                   {ORDER_STATUSES.map((s) => (
                     <option key={s} value={s}>
                       {STATUS_LABEL[s]}
