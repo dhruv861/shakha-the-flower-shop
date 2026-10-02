@@ -3,6 +3,7 @@ import { mkdir, readdir, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { BlobError, del, list, put } from "@vercel/blob";
 import sharp from "sharp";
+import { runningOnVercel } from "../db/config";
 import { fallbackWidth, isRemoteKey } from "./media";
 
 // Uploaded photos are re-encoded on arrival: rotated upright, capped in size,
@@ -41,7 +42,7 @@ export function blobOptions(env: Env = process.env): { token?: string } | null {
 export async function storeImage(input: Buffer) {
   if (input.byteLength > MAX_BYTES) throw new ImageError("That photo is over 15 MB. Try a smaller one.");
   const blob = blobOptions();
-  if (!blob && process.env.VERCEL) {
+  if (!blob && runningOnVercel()) {
     throw new ImageError("Photos need a Vercel Blob store here. Add one in the project's Storage tab, then redeploy.");
   }
 

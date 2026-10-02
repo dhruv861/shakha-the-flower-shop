@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { databaseConfig, LOCAL_DATABASE } from "../src/db/config";
+import { databaseConfig, LOCAL_DATABASE, runningOnVercel } from "../src/db/config";
 import { blobOptions } from "../src/lib/image-store";
 import { mediaSrcSet, mediaUrl } from "../src/lib/media";
 
@@ -47,6 +47,23 @@ describe("databaseConfig", () => {
 
   it("refuses a DATABASE_URL it can't use", () => {
     assert.throws(() => databaseConfig({ DATABASE_URL: "postgres://x" }), /must be a Turso\/libSQL URL/);
+  });
+
+  it("ignores the placeholders `vercel env pull` writes for secret values", () => {
+    const config = databaseConfig({ TURSO_DATABASE_URL: "[SENSITIVE]", TURSO_AUTH_TOKEN: "[SENSITIVE]" });
+    assert.equal(config.url, LOCAL_DATABASE);
+  });
+});
+
+describe("runningOnVercel", () => {
+  it("is true on Vercel's build and server machines", () => {
+    assert.equal(runningOnVercel({ VERCEL: "1", CI: "1" }), true);
+    assert.equal(runningOnVercel({ VERCEL: "1", VERCEL_REGION: "bom1" }), true);
+  });
+
+  it("is false locally, even with VERCEL=1 pulled into a .env file", () => {
+    assert.equal(runningOnVercel({ VERCEL: "1", VERCEL_ENV: "preview" }), false);
+    assert.equal(runningOnVercel({}), false);
   });
 });
 

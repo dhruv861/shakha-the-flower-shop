@@ -158,9 +158,11 @@ shop this size.
    Preview. This adds `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
 2. **Photos.** **Storage → Create → Blob**, with public access, connected for
    Production and Preview. This adds `BLOB_READ_WRITE_TOKEN`.
-3. **Fill the database** from your machine. Copy the variables into
-   `.env.local` (`vercel env pull .env.local`, or copy them from Settings →
-   Environment Variables), then:
+3. **Fill the database** from your machine. `vercel env pull` can't download
+   secret values: Turso's arrive as `[SENSITIVE]` placeholders. Copy the real
+   `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` and `BLOB_READ_WRITE_TOKEN` values
+   from each store's page in Vercel → Storage (or Turso's dashboard) into
+   `.env.local` or `.env.development.local`, then:
 
    ```bash
    npm run setup

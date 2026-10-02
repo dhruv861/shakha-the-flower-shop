@@ -20,6 +20,15 @@ export type DatabaseConfig = {
 
 export const LOCAL_DATABASE = "file:data/shakha.db";
 
+/**
+ * True on Vercel's own build and server machines, which can't keep local files.
+ * `vercel env pull` copies VERCEL=1 into local .env files too, so a build (CI)
+ * or runtime (VERCEL_REGION) marker is required as well.
+ */
+export function runningOnVercel(env: Env = process.env) {
+  return env.VERCEL === "1" && Boolean(env.CI || env.VERCEL_REGION);
+}
+
 const HOSTED = /^(libsql|https?|wss?):\/\//;
 
 /** The token that sits beside a URL variable: X_TURSO_DATABASE_URL → X_TURSO_AUTH_TOKEN, X_URL → X_AUTH_TOKEN. */

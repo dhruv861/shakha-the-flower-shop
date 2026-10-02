@@ -10,6 +10,7 @@ import path from "node:path";
 import { categories, productImages, products, productVariants } from "../src/db/schema";
 import { db, dbClient } from "../src/db/client";
 import { storeImage } from "../src/lib/image-store";
+import { photosReachable } from "./photo-storage-check";
 
 const CATEGORIES = [
   {
@@ -195,6 +196,7 @@ async function main() {
     console.log("Products already exist; nothing to seed.");
     return;
   }
+  if (!photosReachable()) return;
 
   const categoryIds = new Map<string, number>();
   for (const [i, c] of CATEGORIES.entries()) {

@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { type Client, createClient as createHostedClient } from "@libsql/client/web";
 import { drizzle } from "drizzle-orm/libsql/web";
-import { databaseConfig } from "./config";
+import { databaseConfig, runningOnVercel } from "./config";
 import * as schema from "./schema";
 
 // Local development uses a SQLite file in data/. Hosted deployments use Turso
@@ -14,7 +14,7 @@ export const DATABASE_URL = config.url;
 function createDb() {
   let client: Client;
   if (config.url.startsWith("file:")) {
-    if (process.env.VERCEL) {
+    if (runningOnVercel()) {
       throw new Error(
         "No hosted database. On Vercel the shop needs Turso: add it in the project's Storage tab " +
           "(it sets TURSO_DATABASE_URL and TURSO_AUTH_TOKEN), connect it to this project, then redeploy.",

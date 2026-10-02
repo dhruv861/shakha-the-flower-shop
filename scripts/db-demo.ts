@@ -31,6 +31,7 @@ import { db, dbClient } from "../src/db/client";
 import { addDays, indiaNow, slotLabel } from "../src/lib/delivery";
 import { storeImage } from "../src/lib/image-store";
 import { site } from "../src/lib/site";
+import { photosReachable } from "./photo-storage-check";
 
 type Size = [name: string, price: number];
 
@@ -321,6 +322,7 @@ async function main() {
     process.exitCode = 1;
     return;
   }
+  if (!photosReachable()) return;
 
   // 1. Rename and describe the seeded products.
   for (const [slug, patch] of Object.entries(UPDATES)) {
