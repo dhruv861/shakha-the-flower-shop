@@ -177,6 +177,9 @@ shop this size.
 Good to know:
 
 - Without a Turso database the build stops with a message saying what to add.
+- Production uses the main Turso database. Each Preview deployment gets its
+  own copy of it, made when it deploys, so orders and edits on a preview are
+  thrown away with it. Photos are shared, so previews never delete photo files.
 - Vercel caps each request at 4.5 MB, so the admin scales photos down in the
   browser and uploads them one at a time.
 - Preview deployments sit behind Vercel's login (Deployment Protection). Show

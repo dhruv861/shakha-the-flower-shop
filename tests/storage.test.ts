@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { databaseConfig, LOCAL_DATABASE, runningOnVercel } from "../src/db/config";
-import { blobOptions } from "../src/lib/image-store";
+import { blobOptions, mayDeleteBlobFiles } from "../src/lib/image-store";
 import { mediaSrcSet, mediaUrl } from "../src/lib/media";
 
 describe("databaseConfig", () => {
@@ -85,6 +85,12 @@ describe("blobOptions", () => {
 
   it("lets the SDK sign in with Vercel's OIDC token", () => {
     assert.deepEqual(blobOptions({ BLOB_STORE_ID: "store", VERCEL_OIDC_TOKEN: "oidc" }), {});
+  });
+
+  it("keeps shared photo files when deleting on a preview deployment", () => {
+    assert.equal(mayDeleteBlobFiles({ VERCEL_ENV: "preview" }), false);
+    assert.equal(mayDeleteBlobFiles({ VERCEL_ENV: "production" }), true);
+    assert.equal(mayDeleteBlobFiles({}), true);
   });
 });
 

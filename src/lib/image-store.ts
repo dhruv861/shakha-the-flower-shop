@@ -102,11 +102,20 @@ export async function storeImage(input: Buffer) {
   return { key, widths, width, height };
 }
 
+/**
+ * Whether deleting a photo may remove its Blob files. Vercel preview deployments
+ * get their own copy of the database but share the Blob store with production,
+ * so a photo deleted on a preview may still be in use by the live shop.
+ */
+export function mayDeleteBlobFiles(env: Env = process.env) {
+  return env.VERCEL_ENV !== "preview";
+}
+
 /** Deletes a photo's files. Failures are logged, not thrown: the database row is what matters. */
 export async function deleteImageFiles(key: string) {
   if (isRemoteKey(key)) {
     const blob = blobOptions();
-    if (!blob) return;
+    if (!blob || !mayDeleteBlobFiles()) return;
     try {
       const { blobs } = await list({ prefix: `${new URL(key).pathname.slice(1)}-`, ...blob });
       if (blobs.length) await del(blobs.map((b) => b.url), blob);
