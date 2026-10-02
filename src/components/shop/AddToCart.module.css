@@ -1,0 +1,202 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.priceNote {
+  margin-left: 6px;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  padding: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.option input,
+.addon input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--sand);
+}
+
+.option:has(input:focus-visible),
+.addon:has(input:focus-visible) {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+
+.optionPrice {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.addons {
+  display: grid;
+  gap: 8px;
+}
+
+.addon {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.addon:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--sand);
+}
+
+.addonImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  overflow: clip;
+  background: var(--sand);
+}
+
+.addonImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addonName {
+  font-size: 0.9375rem;
+}
+
+.buy {
+  display: flex;
+  gap: 12px;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+}
+
+.stepper button {
+  width: 44px;
+  height: 50px;
+  font-size: 1.25rem;
+  color: var(--ink);
+}
+
+.stepper span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.addButton {
+  flex: 1;
+  min-height: 52px;
+  font-size: 1rem;
+}
+
+.unavailable {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--sand);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.added {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--forest);
+  color: var(--cream);
+  font-size: 0.9375rem;
+}
+
+.addedLinks {
+  display: flex;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.addedLinks a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.checkoutLink {
+  color: var(--blush);
+}
+
+.whatsapp {
+  min-height: 48px;
+}
+
+@media (hover: hover) {
+  .option:hover,
+  .addon:hover {
+    border-color: var(--ink);
+  }
+}

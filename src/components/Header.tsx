@@ -1,24 +1,27 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from "react";
 import { site, whatsappLink } from "@/lib/site";
+import CartButton from "./shop/CartButton";
 import { ArrowIcon, CloseIcon, InstagramIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "./Icons";
 import styles from "./Header.module.css";
 
+// Absolute links so the header works the same on the shop pages.
 const NAV = [
-  { href: "#signature", label: "Signature" },
-  { href: "#occasions", label: "Occasions" },
-  { href: "#weddings", label: "Weddings & décor" },
-  { href: "#visit", label: "Visit us" },
+  { href: "/shop", label: "Shop" },
+  { href: "/#occasions", label: "Occasions" },
+  { href: "/#weddings", label: "Weddings & décor" },
+  { href: "/#visit", label: "Visit us" },
 ];
 
-function Logo({ className }: { className?: string }) {
+function Logo({ className, onClick }: { className?: string; onClick?: () => void }) {
   return (
-    <a href="#top" className={`${styles.logo} ${className ?? ""}`}>
+    <Link href="/" className={`${styles.logo} ${className ?? ""}`} onClick={onClick}>
       <span className={styles.logoMark}>Shakha</span>{" "}
       <span className={styles.logoSub}>The Flower Shop</span>
-    </a>
+    </Link>
   );
 }
 
@@ -79,9 +82,9 @@ export default function Header() {
 
           <nav aria-label="Main" className={styles.nav}>
             {NAV.map((link) => (
-              <a key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href}>
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -99,6 +102,7 @@ export default function Header() {
               <WhatsAppIcon />
               <span className={styles.ctaLabel}>Order on WhatsApp</span>
             </a>
+            <CartButton />
             <button
               ref={toggleRef}
               type="button"
@@ -127,7 +131,7 @@ export default function Header() {
       >
         <div className={styles.menuBar}>
           <div className={styles.inner}>
-            <Logo />
+            <Logo onClick={() => setOpen(false)} />
             <button
               ref={closeRef}
               type="button"
@@ -145,8 +149,8 @@ export default function Header() {
 
         <div className={styles.menuBody}>
           <nav aria-label="Menu" className={styles.menuNav}>
-            {NAV.map((link, i) => (
-              <a
+            {[...NAV, { href: "/cart", label: "Your cart" }].map((link, i) => (
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
@@ -154,7 +158,7 @@ export default function Header() {
               >
                 {link.label}
                 <ArrowIcon size={20} />
-              </a>
+              </Link>
             ))}
           </nav>
 

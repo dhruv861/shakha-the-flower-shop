@@ -3,26 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run db:migrate",
     "dev": "next dev",
+    "prebuild": "npm run db:migrate",
     "build": "next build",
-    "start": "npx serve out",
+    "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test tests/*.test.ts",
+    "setup": "npm run db:migrate && npm run db:seed",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "db:seed": "tsx scripts/db-seed.ts",
+    "db:demo": "tsx scripts/db-demo.ts",
+    "admin:create": "tsx scripts/create-admin.ts",
     "images": "node scripts/optimize-images.mjs",
     "brand-assets": "node scripts/make-brand-assets.mjs"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "@next/env": "^16.3.7",
+    "@vercel/blob": "^2.8.0",
+    "drizzle-orm": "^0.45.3",
     "next": "16.3.7",
+    "qrcode": "^1.5.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^9",
     "eslint-config-next": "16.3.7",
     "opentype.js": "^1.3.4",
-    "sharp": "^0.35.5",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

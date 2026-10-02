@@ -1,14 +1,18 @@
 import type { ReactNode } from "react";
-import { site } from "@/lib/site";
+import { startingPrices } from "@/lib/catalog";
+import { formatTime } from "@/lib/delivery";
+import { formatPrice } from "@/lib/money";
+import { getSettings } from "@/lib/settings";
+import { PLACEHOLDER } from "@/lib/site";
 import { ClockIcon, SproutIcon, TruckIcon } from "./Icons";
 import Picture from "./Picture";
 import styles from "./PromiseSection.module.css";
 
-const PROMISES: { icon: ReactNode; title: string; text: string }[] = [
+const promises = (cutoff: string | null): { icon: ReactNode; title: string; text: string }[] => [
   {
     icon: <TruckIcon size={22} />,
     title: "Same-day delivery",
-    text: `Across Surat when you order by ${site.sameDayCutoff}. Home or office, we'll bring it to the door.`,
+    text: `Across Surat${cutoff ? ` when you order by ${cutoff}` : ""}. Home or office, we'll bring it to the door.`,
   },
   {
     icon: <SproutIcon size={22} />,
@@ -22,19 +26,24 @@ const PROMISES: { icon: ReactNode; title: string; text: string }[] = [
   },
 ];
 
-const PRICES = [
-  { label: "Bouquets", price: site.prices.bouquets },
-  { label: "Signature", more: " creations", price: site.prices.signature },
-  { label: "Hampers", price: site.prices.hampers },
+const PRICE_BANDS = [
+  { label: "Bouquets", category: "bouquets" },
+  { label: "Signature", more: " creations", category: "signature" },
+  { label: "Hampers", category: "hampers" },
 ];
 
-export default function PromiseSection() {
+// Starting prices and the cut-off come from the admin panel. A category with
+// no priced product keeps its visible placeholder; the cut-off is simply left
+// out until one is set, as on the shop pages.
+export default async function PromiseSection() {
+  const [prices, settings] = await Promise.all([startingPrices(), getSettings()]);
+  const cutoff = settings.sameDayCutoff ? formatTime(settings.sameDayCutoff) : null;
   return (
     <section className={styles.section} aria-label="Why Shakha">
       <Picture name="texture-ivory-petals" alt="" sizes="100vw" className={styles.texture} />
       <div className={`container ${styles.inner}`}>
         <ul className={styles.list} role="list">
-          {PROMISES.map((item, i) => (
+          {promises(cutoff).map((item, i) => (
             <li key={item.title} className={`${styles.item} rise`} data-d={i}>
               <span className={styles.icon}>{item.icon}</span>
               <div className={styles.itemText}>
@@ -51,13 +60,17 @@ export default function PromiseSection() {
             <p className={styles.bandSub}>From a single stem to a statement piece.</p>
           </div>
           <ul className={styles.pills} role="list">
-            {PRICES.map((item) => (
+            {PRICE_BANDS.map((item) => (
               <li key={item.label} className={styles.pill}>
                 <span>
                   {item.label}
                   {item.more && <span className={styles.wideOnly}>{item.more}</span>} from
                 </span>
-                <strong>₹{item.price}</strong>
+                <strong>
+                  {prices[item.category] !== undefined
+                    ? formatPrice(prices[item.category])
+                    : `₹${PLACEHOLDER.price}`}
+                </strong>
               </li>
             ))}
           </ul>

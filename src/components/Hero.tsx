@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { whatsappLink } from "@/lib/site";
 import { ArrowIcon, ClockIcon, PinIcon, TruckIcon, WhatsAppIcon } from "./Icons";
 import Picture from "./Picture";
@@ -35,10 +36,10 @@ export default function Hero() {
               <WhatsAppIcon />
               Order on WhatsApp
             </a>
-            <a href="#signature" className="btn btn-outline">
-              See signature bouquets
+            <Link href="/shop" className="btn btn-outline">
+              Shop bouquets
               <ArrowIcon className={styles.ctaArrow} />
-            </a>
+            </Link>
           </div>
           <ul className={styles.trust} role="list">
             <li>
