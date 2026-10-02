@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "npm run db:migrate",
+    "predev": "tsx scripts/db-migrate.ts",
     "dev": "next dev",
-    "prebuild": "npm run db:migrate",
+    "prebuild": "tsx scripts/db-migrate.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
