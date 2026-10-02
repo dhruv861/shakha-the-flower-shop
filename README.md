@@ -6,11 +6,11 @@ delivery or studio pickup; the shop runs orders, products and settings from an
 admin panel at `/admin`.
 
 - Next.js 16 (App Router), React 19, TypeScript, CSS Modules
-- SQLite through Drizzle ORM and libSQL: a file in `data/` locally, Turso (or
-  any libSQL server) in production if you like
+- SQLite through Drizzle ORM and libSQL: a file in `data/` locally, a Turso
+  database when hosted on Vercel
 - Product photos uploaded in the admin are resized to AVIF, WebP and JPEG with
-  sharp and kept in `data/uploads/`
-- A Node.js server app (`next start`), so it needs a Node host, not a static one
+  sharp and kept in `data/uploads/`, or in Vercel Blob when hosted on Vercel
+- Runs on Vercel or any Node.js server (`next start`), not on a static host
 
 ## Run it locally
 
@@ -142,11 +142,49 @@ see the live database), rebuild or save anything in the admin.
 
 ## Deploying
 
-The shop needs an always-on Node.js server and a permanent place for the
-database and uploaded photos. Static hosts (Netlify, Cloudflare Pages, plain
+The shop needs a server (Vercel, or any Node.js host) and a permanent place for
+the database and uploaded photos. Static hosts (Netlify, Cloudflare Pages, plain
 cPanel hosting) can't run it any more.
 
-**A small VPS** (or any Node host with a persistent disk) is the simplest:
+### Vercel, with Turso and Vercel Blob
+
+Vercel's servers can't keep files, so the database lives in Turso and photos in
+Vercel Blob. Both are added from the Vercel project; their free plans cover a
+shop this size.
+
+1. **Database.** In the project, open **Storage → Create → Turso**. Choose the
+   Mumbai (`ap-south-1`) location: `vercel.json` runs the shop's server code in
+   Mumbai (`bom1`), close to Surat. Connect it to the project for Production and
+   Preview. This adds `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
+2. **Photos.** **Storage → Create → Blob**, with public access, connected for
+   Production and Preview. This adds `BLOB_READ_WRITE_TOKEN`.
+3. **Fill the database** from your machine. Copy the variables into
+   `.env.local` (`vercel env pull .env.local`, or copy them from Settings →
+   Environment Variables), then:
+
+   ```bash
+   npm run setup
+   npm run db:demo        # only for a demo shop
+   npm run admin:create -- --email owner@example.com
+   ```
+
+   Photos from the seed and demo go straight to Blob.
+4. **Redeploy** the project. Each build applies database migrations, then
+   pre-builds the homepage and product pages from the database.
+
+Good to know:
+
+- Without a Turso database the build stops with a message saying what to add.
+- Vercel caps each request at 4.5 MB, so the admin scales photos down in the
+  browser and uploads them one at a time.
+- Preview deployments sit behind Vercel's login (Deployment Protection). Show
+  the shop from the production deployment, or turn protection off for previews.
+- Login and order rate limits are kept in memory per server instance, so on
+  Vercel they're looser than on a single server.
+
+### A server with a disk
+
+A small VPS (or any Node host with a persistent disk) needs no extra services:
 
 ```bash
 npm ci                      # dev tools are needed: the build and scripts use them
@@ -166,10 +204,6 @@ npm start                   # port 3000; use -p or PORT to change it
   pages are pre-built from it. On hosts that attach the disk only at runtime
   (Render, Railway), use Turso for the database or save anything in the admin
   after each deploy.
-
-**Serverless** (Vercel and similar) would need Turso for the database and
-object storage (such as S3 or R2) for uploaded photos. Uploads currently write
-to local disk, so that isn't built yet.
 
 ## Motion
 
@@ -199,14 +233,15 @@ in `MAX_WIDTH` in `scripts/optimize-images.mjs` if it's shown wider than 320px.
 Product photos for the seed come from `media-src/images/`, and the demo's extra
 ones from `media-src/products/`: plain crops of Shakha's own Instagram and
 Google posts, with each source listed in `media-src/products/sources.json`.
-Photos added in the admin go to `data/uploads/`.
+Photos added in the admin go to `data/uploads/`, or to Vercel Blob when a Blob
+store is connected.
 
 ## Structure
 
 ```
 src/app/(store)/   homepage, shop, product pages, cart, checkout, order pages, checkout actions
 src/app/admin/     login and the admin panel, with its server actions
-src/app/media/     serves uploaded product photos
+src/app/media/     serves uploaded product photos kept on local disk
 src/components/    homepage sections; shop/ (cart, product, checkout); admin/ (admin UI)
 src/db/            schema and database client (Drizzle + libSQL)
 src/lib/           site facts, catalog, orders, settings, delivery slots, auth, images, WhatsApp

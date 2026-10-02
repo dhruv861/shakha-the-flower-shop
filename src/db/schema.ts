@@ -71,7 +71,8 @@ export const productImages = sqliteTable(
     productId: integer("product_id")
       .notNull()
       .references(() => products.id, { onDelete: "cascade" }),
-    // Storage key: files live at <UPLOAD_DIR>/<key>-<width>.<avif|webp> (+ one .jpg).
+    // Storage key: files live at <UPLOAD_DIR>/<key>-<width>.<avif|webp> (+ one .jpg),
+    // or with Vercel Blob the key is the files' URL prefix (<blob url>/products/<id>).
     key: text("key").notNull(),
     widths: text("widths", { mode: "json" }).$type<number[]>().notNull(),
     width: integer("width").notNull(),

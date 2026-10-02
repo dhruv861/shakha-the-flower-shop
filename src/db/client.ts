@@ -1,19 +1,35 @@
 import { mkdirSync } from "node:fs";
 import path from "node:path";
-import { createClient, type Client } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { type Client, createClient as createHostedClient } from "@libsql/client/web";
+import { drizzle } from "drizzle-orm/libsql/web";
+import { databaseConfig } from "./config";
 import * as schema from "./schema";
 
-// Local development uses a SQLite file in data/. In production, point
-// DATABASE_URL at a hosted libSQL database (e.g. Turso) and set DATABASE_AUTH_TOKEN,
-// or keep the file on a server with a persistent disk.
-export const DATABASE_URL = process.env.DATABASE_URL ?? "file:data/shakha.db";
+// Local development uses a SQLite file in data/. Hosted deployments use Turso
+// (on Vercel, add it from the project's Storage tab); config.ts lists the
+// variables that are read.
+const config = databaseConfig();
+export const DATABASE_URL = config.url;
 
 function createDb() {
-  if (DATABASE_URL.startsWith("file:")) {
-    mkdirSync(path.dirname(path.resolve(/*turbopackIgnore: true*/ DATABASE_URL.slice("file:".length))), { recursive: true });
+  let client: Client;
+  if (config.url.startsWith("file:")) {
+    if (process.env.VERCEL) {
+      throw new Error(
+        "No hosted database. On Vercel the shop needs Turso: add it in the project's Storage tab " +
+          "(it sets TURSO_DATABASE_URL and TURSO_AUTH_TOKEN), connect it to this project, then redeploy.",
+      );
+    }
+    mkdirSync(path.dirname(path.resolve(/*turbopackIgnore: true*/ config.url.slice("file:".length))), { recursive: true });
+    // The local SQLite engine is a native module, so it's loaded only for file
+    // databases. Hosted ones use the pure-JavaScript client, which needs no
+    // platform binary on serverless hosts.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const local = require("@libsql/client") as typeof import("@libsql/client");
+    client = local.createClient({ url: config.url });
+  } else {
+    client = createHostedClient({ url: config.url, authToken: config.authToken });
   }
-  const client = createClient({ url: DATABASE_URL, authToken: process.env.DATABASE_AUTH_TOKEN });
   return { client, db: drizzle(client, { schema }) };
 }
 

@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // The shop and admin need a Node server (`npm run build && npm start`);
-  // see README → Deploying.
+  // The shop and admin need a Node server or Vercel; see README → Deploying.
   experimental: {
     inlineCss: true,
     serverActions: {
-      // Product photo uploads from the admin panel (15 MB per photo max).
-      bodySizeLimit: "25mb",
+      // Admin photo uploads: the browser scales photos to ≤ 3.5 MB and sends
+      // them one at a time, which also fits Vercel's 4.5 MB request cap.
+      bodySizeLimit: "5mb",
     },
   },
   images: {

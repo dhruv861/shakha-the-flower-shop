@@ -52,7 +52,8 @@ export default async function ProductPage({ params }: PageProps<"/shop/[slug]">)
     name: product.name,
     description: product.summary,
     url: `${site.url}/shop/${product.slug}`,
-    image: product.images.map((i) => `${site.url}${mediaUrl(i.key, fallbackWidth(i.widths), "jpg")}`),
+    // Local photos have relative URLs; photos in Vercel Blob are already absolute.
+    image: product.images.map((i) => new URL(mediaUrl(i.key, fallbackWidth(i.widths), "jpg"), site.url).href),
     brand: { "@type": "Brand", name: site.name },
     offers: {
       "@type": "AggregateOffer",
