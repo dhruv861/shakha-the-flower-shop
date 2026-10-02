@@ -76,6 +76,12 @@
   color: var(--muted);
 }
 
+.from {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--rose);
+}
+
 .arrow {
   display: none;
   width: 40px;

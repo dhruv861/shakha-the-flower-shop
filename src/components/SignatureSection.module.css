@@ -167,14 +167,11 @@
   margin-top: 28px;
 }
 
-.alsoLine {
-  font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--sage);
-}
-
 .chips {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .chipList {
@@ -194,15 +191,27 @@
     color 0.2s ease;
 }
 
+.chipPrice {
+  margin-left: 8px;
+  font-weight: 600;
+  color: var(--blush);
+  transition: color 0.2s ease;
+}
+
 @media (hover: hover) {
   .chipLink:hover {
     background: var(--cream);
     color: var(--forest);
   }
+
+  .chipLink:hover .chipPrice {
+    color: var(--rose);
+  }
 }
 
+/* On phones the label sits on its own line above the chips. */
 .chipsLabel {
-  margin-right: 6px;
+  width: 100%;
   font-size: 0.875rem;
   color: var(--sage);
 }
@@ -226,15 +235,9 @@
     margin-top: 44px;
   }
 
-  .alsoLine {
-    display: none;
-  }
-
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
+  .chipsLabel {
+    width: auto;
+    margin-right: 6px;
   }
 }
 

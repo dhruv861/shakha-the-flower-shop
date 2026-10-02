@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { occasionStartingPrices, startingPrices } from "@/lib/catalog";
+import { formatPrice } from "@/lib/money";
 import { ArrowIcon } from "./Icons";
 import Picture from "./Picture";
 import type { ImageName } from "./Picture";
@@ -9,7 +11,8 @@ type Occasion = {
   detail: string;
   image: ImageName;
   alt: string;
-  href: string;
+  /** What the tile opens in the shop: an occasion filter or a category. */
+  filter: { occasion: string } | { category: string };
 };
 
 const OCCASIONS: Occasion[] = [
@@ -18,32 +21,41 @@ const OCCASIONS: Occasion[] = [
     detail: "Roses, heart boxes and proposals",
     image: "tile-love-heart-box",
     alt: "A heart-shaped box of red roses on an oak table",
-    href: "/shop?occasion=love",
+    filter: { occasion: "love" },
   },
   {
     name: "Just because",
     detail: "Little bouquets, big smiles",
     image: "tile-just-because-kraft-roses",
     alt: "Pink roses arranged in kraft paper boxes",
-    href: "/shop?occasion=just-because",
+    filter: { occasion: "just-because" },
   },
   {
     name: "Hampers & gifting",
     detail: "Fruit, flowers and treats",
     image: "tile-hampers-restaged",
     alt: "Fruit and sunflower gift hampers on an oak table",
-    href: "/shop?category=hampers",
+    filter: { category: "hampers" },
   },
   {
     name: "Birthdays",
     detail: "Bright, cheerful bouquets",
     image: "tile-birthdays-sunflower",
     alt: "A bouquet of sunflowers and pink lilies",
-    href: "/shop?occasion=birthday",
+    filter: { occasion: "birthday" },
   },
 ];
 
-export default function OccasionsSection() {
+// Each tile shows the lowest price in the shop for its occasion; a tile with
+// nothing orderable yet simply shows no price.
+export default async function OccasionsSection() {
+  const [byOccasion, byCategory] = await Promise.all([occasionStartingPrices(), startingPrices()]);
+  const tiles = OCCASIONS.map(({ filter, ...item }) =>
+    "occasion" in filter
+      ? { ...item, href: `/shop?occasion=${filter.occasion}`, from: byOccasion[filter.occasion] }
+      : { ...item, href: `/shop?category=${filter.category}`, from: byCategory[filter.category] },
+  );
+
   return (
     <section id="occasions" className={styles.section} aria-labelledby="occasions-title">
       <div className="container">
@@ -61,7 +73,7 @@ export default function OccasionsSection() {
         </div>
 
         <ul className={styles.grid} role="list">
-          {OCCASIONS.map((item, i) => (
+          {tiles.map((item, i) => (
             <li key={item.name} className="rise" data-d={i} data-dm={i % 2}>
               <Link href={item.href} className={styles.tile}>
                 <div className={`${styles.photo} frame`}>
@@ -77,6 +89,7 @@ export default function OccasionsSection() {
                   <span className={styles.text}>
                     <span className={styles.name}>{item.name}</span>
                     <span className={styles.detail}>{item.detail}</span>
+                    {item.from !== undefined && <span className={styles.from}>From {formatPrice(item.from)}</span>}
                   </span>
                   <span className={styles.arrow} aria-hidden="true">
                     <ArrowIcon />

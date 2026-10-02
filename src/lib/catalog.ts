@@ -101,12 +101,26 @@ export async function listShopCategories() {
   return all.filter((c) => used.has(c.slug));
 }
 
-/** Lowest live price per category slug, for "Bouquets from ₹…" lines. */
+/** Products a "from ₹…" price can promise today: in stock, and not add-ons. */
+async function orderableCards() {
+  return (await activeCards()).filter((c) => c.inStock && !c.isAddon);
+}
+
+/** Lowest orderable price per category slug, for "Bouquets from ₹…" lines. */
 export async function startingPrices() {
   const prices: Record<string, number> = {};
-  for (const c of await activeCards()) {
+  for (const c of await orderableCards()) {
     if (!c.categorySlug) continue;
     prices[c.categorySlug] = Math.min(prices[c.categorySlug] ?? Infinity, c.minPrice);
+  }
+  return prices;
+}
+
+/** Lowest orderable price per occasion slug, for the homepage's occasion tiles. */
+export async function occasionStartingPrices() {
+  const prices: Record<string, number> = {};
+  for (const c of await orderableCards()) {
+    for (const occasion of c.occasions) prices[occasion] = Math.min(prices[occasion] ?? Infinity, c.minPrice);
   }
   return prices;
 }

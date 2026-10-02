@@ -107,11 +107,20 @@
   padding: 0 14px;
   border-radius: 999px;
   background: var(--sand);
+  color: var(--ink);
   font-size: 0.875rem;
+  transition: background-color 0.2s ease;
 }
 
 .pill strong {
   font-weight: 600;
+  color: var(--rose);
+}
+
+@media (hover: hover) {
+  .pill:hover {
+    background: var(--sand-deep);
+  }
 }
 
 .wideOnly {

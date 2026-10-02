@@ -1,12 +1,6 @@
 // Business facts that rarely change. Prices, delivery rules and the
-// same-day cut-off are managed in the admin panel (/admin) instead.
-//
-// [PRICE] shows wherever a price is needed and Shakha hasn't set one yet.
-// It renders as-is on purpose: never replace it with a guess.
-
-export const PLACEHOLDER = {
-  price: "[PRICE]",
-} as const;
+// same-day cut-off are managed in the admin panel (/admin) instead; wherever
+// a price isn't set yet, the site simply leaves it out.
 
 export const site = {
   name: "Shakha The Flower Shop",

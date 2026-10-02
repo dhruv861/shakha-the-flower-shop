@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cardsBySlug } from "@/lib/catalog";
 import { formatPrice } from "@/lib/money";
-import { PLACEHOLDER, whatsappLink } from "@/lib/site";
+import { whatsappLink } from "@/lib/site";
 import { ArrowIcon, PlayIcon } from "./Icons";
 import Picture from "./Picture";
 import type { ImageName } from "./Picture";
@@ -49,8 +49,8 @@ const ALSO_ON_THE_MENU = [
   { name: "Laddu", slug: "laddu-bouquet" },
 ];
 
-// Cards link to the shop once Shakha publishes a product with a price;
-// until then they open WhatsApp, as before the shop existed.
+// Cards and chips show the live price and link to the shop once a product is
+// published with a price; until then they open WhatsApp and show no price.
 export default async function SignatureSection() {
   const live = await cardsBySlug([...CREATIONS, ...ALSO_ON_THE_MENU].map((c) => c.slug));
   return (
@@ -118,11 +118,12 @@ export default async function SignatureSection() {
                     </a>
                   )}
                 </h3>
-                <span className={styles.price}>
-                  {card
-                    ? `${card.variantCount > 1 ? "From " : ""}${formatPrice(card.minPrice)}`
-                    : `From ₹${PLACEHOLDER.price}`}
-                </span>
+                {card && (
+                  <span className={styles.price}>
+                    {card.variantCount > 1 ? "From " : ""}
+                    {formatPrice(card.minPrice)}
+                  </span>
+                )}
               </div>
               <p className={styles.text}>{item.description}</p>
             </div>
@@ -132,23 +133,27 @@ export default async function SignatureSection() {
       </ul>
 
       <div className={`container ${styles.also}`}>
-        <p className={styles.alsoLine}>
-          Also on the menu: jamun, mocktail, Diet Coke, Ferrero and laddu bouquets.
-        </p>
         <div className={`${styles.chips} rise`}>
           <span className={styles.chipsLabel}>Also on the menu</span>
           <ul className={styles.chipList} role="list">
-            {ALSO_ON_THE_MENU.map((item) => (
-              <li key={item.slug}>
-                {live[item.slug] ? (
-                  <Link href={`/shop/${item.slug}`} className={`chip ${styles.chipLink}`}>
-                    {item.name} bouquet
-                  </Link>
-                ) : (
-                  <span className="chip">{item.name} bouquet</span>
-                )}
-              </li>
-            ))}
+            {ALSO_ON_THE_MENU.map((item) => {
+              const card = live[item.slug];
+              return (
+                <li key={item.slug}>
+                  {card ? (
+                    <Link href={`/shop/${item.slug}`} className={`chip ${styles.chipLink}`}>
+                      {item.name} bouquet
+                      <span className={styles.chipPrice}>
+                        {card.variantCount > 1 ? "from " : ""}
+                        {formatPrice(card.minPrice)}
+                      </span>
+                    </Link>
+                  ) : (
+                    <span className="chip">{item.name} bouquet</span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
