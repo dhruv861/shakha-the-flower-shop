@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { formatPrice } from "../src/lib/money";
-import { formatPhone, orderMessage, waLink, waNumber } from "../src/lib/whatsapp";
+import { cartEnquiry, formatPhone, orderMessage, productEnquiry, waLink, waNumber } from "../src/lib/whatsapp";
 
 describe("formatPrice", () => {
   it("writes whole rupees with Indian digit grouping", () => {
@@ -62,5 +62,56 @@ describe("orderMessage", () => {
   it("names the studio for pickups", () => {
     const text = orderMessage({ ...order, fulfillment: "pickup", pickupBranch: "dumas", area: null }, [], "u");
     assert.match(text, /Pickup from Dumas: Friday, 2 October/);
+  });
+});
+
+describe("productEnquiry", () => {
+  const rose = { name: "Pink Rose Bouquet", variantName: "Deluxe", quantity: 2, unitPrice: 1999 };
+
+  it("carries the size, quantity, add-ons, total and page link", () => {
+    const text = productEnquiry(
+      rose,
+      [{ name: "Mini teddy", variantName: "Standard", quantity: 1, unitPrice: 399 }],
+      "https://shop.example/shop/pink-rose-bouquet",
+    );
+    assert.equal(
+      text,
+      [
+        "Hi Shakha! I have a question about this:",
+        "",
+        "• 2 × Pink Rose Bouquet (Deluxe): ₹3,998",
+        "• 1 × Mini teddy: ₹399",
+        "Total: ₹4,397",
+        "",
+        "https://shop.example/shop/pink-rose-bouquet",
+      ].join("\n"),
+    );
+  });
+
+  it("keeps it to one line for a single item, without the Standard size", () => {
+    const text = productEnquiry({ name: "The Litchi Bouquet", variantName: "Standard", quantity: 1, unitPrice: 1999 }, []);
+    assert.equal(text, "Hi Shakha! I have a question about this:\n\n• 1 × The Litchi Bouquet: ₹1,999");
+  });
+});
+
+describe("cartEnquiry", () => {
+  it("lists every cart line and the subtotal", () => {
+    const text = cartEnquiry(
+      [
+        { name: "The Litchi Bouquet", variantName: "Standard", quantity: 1, unitPrice: 1999 },
+        { name: "Orchid Bouquet", variantName: "Classic", quantity: 2, unitPrice: 1999 },
+      ],
+      5997,
+    );
+    assert.equal(
+      text,
+      [
+        "Hi Shakha! I have a question about my cart:",
+        "",
+        "• 1 × The Litchi Bouquet: ₹1,999",
+        "• 2 × Orchid Bouquet (Classic): ₹3,998",
+        "Subtotal: ₹5,997",
+      ].join("\n"),
+    );
   });
 });

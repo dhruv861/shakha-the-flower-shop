@@ -17,6 +17,37 @@ export function formatPhone(phone: string) {
   return digits.length === 10 ? `+91 ${digits.slice(0, 5)} ${digits.slice(5)}` : phone;
 }
 
+type EnquiryLine = { name: string; variantName?: string; quantity: number; unitPrice: number };
+
+/** "• 2 × Pink Rose Bouquet (Deluxe): ₹3,998" — the size is left out when there's only "Standard". */
+function enquiryLine(line: EnquiryLine) {
+  const size = line.variantName && line.variantName !== "Standard" ? ` (${line.variantName})` : "";
+  return `• ${line.quantity} × ${line.name}${size}: ${formatPrice(line.unitPrice * line.quantity)}`;
+}
+
+/** "Ask about this on WhatsApp" on a product page: the size, quantity and add-ons chosen, and the page link. */
+export function productEnquiry(item: EnquiryLine, addons: EnquiryLine[], pageUrl?: string) {
+  const lines = [item, ...addons];
+  const total = lines.reduce((sum, l) => sum + l.unitPrice * l.quantity, 0);
+  return [
+    "Hi Shakha! I have a question about this:",
+    "",
+    ...lines.map(enquiryLine),
+    ...(lines.length > 1 || item.quantity > 1 ? [`Total: ${formatPrice(total)}`] : []),
+    ...(pageUrl ? ["", pageUrl] : []),
+  ].join("\n");
+}
+
+/** "Ask about this on WhatsApp" in the cart: every line and the subtotal. */
+export function cartEnquiry(lines: EnquiryLine[], subtotal: number) {
+  return [
+    "Hi Shakha! I have a question about my cart:",
+    "",
+    ...lines.map(enquiryLine),
+    `Subtotal: ${formatPrice(subtotal)}`,
+  ].join("\n");
+}
+
 type OrderForMessage = {
   number: string;
   fulfillment: "delivery" | "pickup";

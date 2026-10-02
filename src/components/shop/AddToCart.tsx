@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import type { StoredImage } from "@/lib/media";
 import { formatPrice } from "@/lib/money";
+import { whatsappLink } from "@/lib/site";
+import { productEnquiry } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "../Icons";
 import { cart } from "./cart-store";
 import ProductImage from "./ProductImage";
@@ -26,16 +28,28 @@ type Props = {
   addons: Addon[];
   canOrder: boolean;
   unavailableMessage: string;
-  whatsappHref: string;
 };
 
-export default function AddToCart({ product, variants, addons, canOrder, unavailableMessage, whatsappHref }: Props) {
+const noSubscription = () => () => {};
+
+export default function AddToCart({ product, variants, addons, canOrder, unavailableMessage }: Props) {
   const [variantId, setVariantId] = useState(variants[0].id);
   const [quantity, setQuantity] = useState(1);
   const [chosen, setChosen] = useState<number[]>([]);
   const [added, setAdded] = useState(false);
+  // The site's own address (Vercel today, Shakha's domain later), known once in the browser.
+  const origin = useSyncExternalStore(noSubscription, () => window.location.origin, () => "");
   const variant = variants.find((v) => v.id === variantId) ?? variants[0];
-  const addonTotal = addons.filter((a) => chosen.includes(a.variantId)).reduce((sum, a) => sum + a.price, 0);
+  const chosenAddons = addons.filter((a) => chosen.includes(a.variantId));
+  const addonTotal = chosenAddons.reduce((sum, a) => sum + a.price, 0);
+  // The WhatsApp question carries exactly what's selected: size, quantity and add-ons.
+  const whatsappHref = whatsappLink(
+    productEnquiry(
+      { name: product.name, variantName: variant.name, quantity, unitPrice: variant.price },
+      chosenAddons.map((a) => ({ name: a.name, variantName: a.variantName, quantity: 1, unitPrice: a.price })),
+      origin ? `${origin}/shop/${product.slug}` : undefined,
+    ),
+  );
 
   function add() {
     cart.add(
@@ -50,7 +64,7 @@ export default function AddToCart({ product, variants, addons, canOrder, unavail
       },
       quantity,
     );
-    for (const a of addons.filter((x) => chosen.includes(x.variantId))) {
+    for (const a of chosenAddons) {
       cart.add({
         variantId: a.variantId,
         productId: a.productId,

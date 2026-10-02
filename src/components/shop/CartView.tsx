@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { formatPrice } from "@/lib/money";
+import { whatsappLink } from "@/lib/site";
+import { cartEnquiry } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "../Icons";
 import { cart, useCart, useHydrated } from "./cart-store";
 import ProductImage from "./ProductImage";
 import { useLivePrices } from "./useLivePrices";
@@ -32,6 +35,13 @@ export default function CartView({ acceptingOrders, closedMessage, deliveryNote 
   }
 
   const blocked = issues.size > 0 || !acceptingOrders;
+  // The WhatsApp question lists the cart as shown here, lines and subtotal.
+  const whatsappHref = whatsappLink(
+    cartEnquiry(
+      lines.map((l) => ({ name: l.name, variantName: l.variantName, quantity: l.quantity, unitPrice: l.unitPrice })),
+      subtotal,
+    ),
+  );
 
   return (
     <div className={styles.layout}>
@@ -98,6 +108,10 @@ export default function CartView({ acceptingOrders, closedMessage, deliveryNote 
             Checkout
           </Link>
         )}
+        <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className={`btn btn-outline ${styles.whatsapp}`}>
+          <WhatsAppIcon />
+          Ask about this on WhatsApp
+        </a>
         <Link href="/shop" className={styles.continue}>
           Continue shopping
         </Link>

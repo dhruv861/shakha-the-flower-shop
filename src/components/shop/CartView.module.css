@@ -162,6 +162,10 @@
   cursor: not-allowed;
 }
 
+.whatsapp {
+  min-height: 48px;
+}
+
 .continue {
   align-self: center;
   font-size: 0.875rem;

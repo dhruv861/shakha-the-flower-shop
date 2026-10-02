@@ -10,7 +10,7 @@ import { formatTime } from "@/lib/delivery";
 import { fallbackWidth, mediaUrl } from "@/lib/media";
 import { occasionLabel } from "@/lib/occasions";
 import { getSettings } from "@/lib/settings";
-import { site, whatsappLink } from "@/lib/site";
+import { site } from "@/lib/site";
 import styles from "./product.module.css";
 
 export async function generateStaticParams() {
@@ -103,7 +103,6 @@ export default async function ProductPage({ params }: PageProps<"/shop/[slug]">)
               }
               canOrder={canOrder}
               unavailableMessage={unavailableMessage}
-              whatsappHref={whatsappLink(`Hi Shakha! I have a question about ${product.name}.`)}
             />
 
             {product.description && (
