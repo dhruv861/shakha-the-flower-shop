@@ -79,6 +79,10 @@ describe("blobOptions", () => {
     assert.equal(blobOptions({ OTHER_READ_WRITE_TOKEN: "not-a-blob-token" }), null);
   });
 
+  it("ignores the [SENSITIVE] placeholder from `vercel env pull`", () => {
+    assert.equal(blobOptions({ BLOB_READ_WRITE_TOKEN: "[SENSITIVE]" }), null);
+  });
+
   it("lets the SDK sign in with Vercel's OIDC token", () => {
     assert.deepEqual(blobOptions({ BLOB_STORE_ID: "store", VERCEL_OIDC_TOKEN: "oidc" }), {});
   });

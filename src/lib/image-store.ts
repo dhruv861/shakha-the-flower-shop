@@ -29,12 +29,12 @@ type Env = Record<string, string | undefined>;
  * or newer stores' BLOB_STORE_ID with Vercel's OIDC token (which the SDK picks up).
  */
 export function blobOptions(env: Env = process.env): { token?: string } | null {
-  if (env.BLOB_READ_WRITE_TOKEN) return { token: env.BLOB_READ_WRITE_TOKEN };
-  const prefixed = Object.keys(env)
-    .filter((k) => k.endsWith("_READ_WRITE_TOKEN"))
-    .sort()
-    .find((k) => env[k]?.startsWith("vercel_blob_rw_"));
-  if (prefixed) return { token: env[prefixed] };
+  // Real tokens start with vercel_blob_rw_; anything else (like the [SENSITIVE]
+  // placeholder `vercel env pull` writes for secrets) is ignored.
+  const key = ["BLOB_READ_WRITE_TOKEN", ...Object.keys(env).filter((k) => k.endsWith("_READ_WRITE_TOKEN")).sort()].find((k) =>
+    env[k]?.trim().startsWith("vercel_blob_rw_"),
+  );
+  if (key) return { token: env[key]!.trim() };
   if (env.BLOB_STORE_ID && env.VERCEL_OIDC_TOKEN) return {};
   return null;
 }

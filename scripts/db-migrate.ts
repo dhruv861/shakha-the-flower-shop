@@ -6,7 +6,8 @@ import { DATABASE_URL, db, dbClient } from "../src/db/client";
 
 async function main() {
   await migrate(db, { migrationsFolder: "drizzle" });
-  console.log(`Database ready (${DATABASE_URL.startsWith("file:") ? DATABASE_URL : "remote libSQL"})`);
+  // The host (never the token) shows which hosted database was used.
+  console.log(`Database ready (${DATABASE_URL.startsWith("file:") ? DATABASE_URL : `libSQL at ${new URL(DATABASE_URL).host}`})`);
   dbClient.close();
 }
 
